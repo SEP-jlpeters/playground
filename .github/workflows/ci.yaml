@@ -14,9 +14,21 @@ jobs:
     strategy:
       matrix:
         path: ["./integration_a", "./integration_b"]
-    uses: ./.github/workflows/int_a.yaml
-    with:
-      path: ${{ matrix.path }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: check for diff
+        id: check-diff
+        uses: ./.github/actions/check_path_diff
+        with:
+          path: ${{ matrix.path }}
+
+      - name: run integration
+        if: { { steps.check-diff.outputs.has-diff == 0 } }
+        uses: ./.github/actions/run_integration
+        with:
+          path: ${{ matrix.path }}
 
   after:
     runs-on: ubuntu-latest

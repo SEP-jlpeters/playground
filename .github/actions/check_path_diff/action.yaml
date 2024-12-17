@@ -1,0 +1,19 @@
+name: Check if a path has changes
+description: see name
+inputs:
+  path:
+    required: true
+outputs:
+  has-diff:
+    description: thing
+    value: ${{ steps.get-diff.outputs.has_diff}}
+
+runs:
+  using: "composite"
+  steps:
+    - id: get-diff
+      shell: bash
+      run: |
+        git diff HEAD^ HEAD --name-only |
+        grep ${{ path }}
+        echo "has_diff=$?" >> $GITHUB_OUTPUT
