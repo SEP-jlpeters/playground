@@ -1,7 +1,7 @@
 name: Integration A workflow
 
 on:
-  workflow-call:
+  workflow_call:
     inputs:
       path:
         required: true
