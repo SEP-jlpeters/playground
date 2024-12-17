@@ -15,14 +15,9 @@ jobs:
     strategy:
       matrix:
         path: ["./integration_a", "./integration_b"]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run integration ${{ matrix.path }}
-        uses: ./.github/workflows/int_a.yaml
-        with:
-          path: ${{ matrix.path }}
+    uses: ./.github/workflows/int_a.yaml
+    with:
+      path: ${{ matrix.path }}
 
   after:
     runs-on: ubuntu-latest
