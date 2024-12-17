@@ -1,0 +1,11 @@
+name: Do an integration
+description: see name
+inputs:
+  path:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Say hi from path
+      run: echo "hello from ${{ inputs.path }}"
