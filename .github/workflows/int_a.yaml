@@ -1,1 +1,4 @@
 name: Integration A workflow
+
+on:
+  workflow-dispatch:
