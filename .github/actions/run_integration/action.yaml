@@ -9,3 +9,4 @@ runs:
   steps:
     - name: Say hi from path
       run: echo "hello from ${{ inputs.path }}"
+      shell: bash
