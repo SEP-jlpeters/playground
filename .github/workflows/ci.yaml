@@ -28,7 +28,7 @@ jobs:
           path: ${{ matrix.path }}
 
       - name: run integration
-        if: ${{ steps.check-diff.outputs.has-diff == "true" }}
+        if: ${{ steps.check-diff.outputs.has-diff == true }}
         uses: ./.github/actions/run_integration
         with:
           path: ${{ matrix.path }}
