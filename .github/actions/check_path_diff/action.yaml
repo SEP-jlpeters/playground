@@ -15,5 +15,5 @@ runs:
       shell: bash
       run: |
         git diff HEAD^ HEAD --name-only |
-        grep ${{ path }}
+        grep ${{ inputs.path }}
         echo "has_diff=$?" >> $GITHUB_OUTPUT
