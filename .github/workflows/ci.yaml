@@ -14,7 +14,7 @@ jobs:
     needs: [say-hi]
     strategy:
       matrix:
-        path: ["./integration_a", "./integration_b"]
+        path: ["integration_a", "integration_b"]
     steps:
       - name: checkout
         uses: actions/checkout@v2
