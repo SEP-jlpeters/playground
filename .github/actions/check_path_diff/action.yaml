@@ -14,6 +14,9 @@ runs:
     - id: get-diff
       shell: bash
       run: |
-        git diff ${{ github.event.before }} ${{ github.event.after }} --name-only |
-        grep ${{ inputs.path }}
-        echo "has_diff=$?" >> $GITHUB_OUTPUT
+        if [[git diff ${{ github.event.before }} ${{ github.event.after }} --name-only |
+        grep ${{ inputs.path }}]]; then
+          echo "has_diff=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_diff=false" >> $GITHUB_OUTPUT
+        fi
