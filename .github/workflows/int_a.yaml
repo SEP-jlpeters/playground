@@ -8,9 +8,10 @@ on:
     paths:
       - ${{ inputs.path }}
 
-runs:
-  using: "composite"
-  steps:
-    - name: Say hi from path
-      run: echo "hello from ${{ inputs.path }}"
-      shell: bash
+jobs:
+  print_path:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hi from path
+        run: echo "hello from ${{ inputs.path }}"
+        shell: bash
