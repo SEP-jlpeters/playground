@@ -7,8 +7,7 @@ jobs:
   say-hi:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo "hello world" 
+      - run: echo "hello world"
 
   integrations:
     needs: [say-hi]
@@ -25,5 +24,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integrations]
     steps:
-      - run: |
-        echo "hello world" 
+      - run: echo "hello world"
