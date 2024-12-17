@@ -1,4 +1,16 @@
 name: Integration A workflow
 
 on:
-  workflow-dispatch:
+  workflow-call:
+    inputs:
+      path:
+        required: true
+    paths:
+      - ${{ inputs.path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Say hi from path
+      run: echo "hello from ${{ inputs.path }}"
+      shell: bash
