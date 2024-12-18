@@ -15,8 +15,11 @@ on:
 jobs:
   get-input-list:
     runs-on: ubuntu-latest
+    outputs:
+      input-list: ${{ steps.get.outputs.input-list }}
     steps:
-      - run: |
+      - id: get
+        run: |
           input_list=$(echo '${{ toJSON(inputs) }}' | jq 'keys' -c)
           echo $input_list
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
