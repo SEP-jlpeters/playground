@@ -31,6 +31,9 @@ jobs:
       matrix:
         path: ${{ fromJSON(needs.get-input-list.outputs.input-list) }}
     steps:
+      - name: print input from path
+        run: |
+          echo ${{ inputs.${{ matrix.path }} }}
       - name: checkout
         if: inputs.${{ matrix.path }}
         uses: actions/checkout@v2
