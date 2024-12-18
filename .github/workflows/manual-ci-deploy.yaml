@@ -2,6 +2,9 @@ name: Manual Continuous Integration
 on:
   workflow_dispatch:
     inputs:
+      deploy_all:
+        type: boolean
+        default: false
       integration_b:
         type: boolean
         default: false
@@ -9,9 +12,6 @@ on:
         type: boolean
         default: false
       integration_a:
-        type: boolean
-        default: false
-      all:
         type: boolean
         default: false
 
@@ -23,10 +23,10 @@ jobs:
     steps:
       - id: get
         run: |
-          if ${{ inputs.all }}; then
-            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.key != "all")) | keys')
+          if ${{ inputs.deploy_all }}; then
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.key != "deploy_all")) | keys')
           else
-            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.value == true and .key != "all")) | keys')
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.value == true and .key != "deploy_all")) | keys')
           fi
           echo $input_list
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
