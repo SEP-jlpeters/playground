@@ -45,6 +45,9 @@ jobs:
           fi
           echo $input_list
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
+      - name: check
+        if: steps.get.outputs.input-list == '[]'
+        run: exit 1
 
   specific-integrations:
     runs-on: ubuntu-latest
