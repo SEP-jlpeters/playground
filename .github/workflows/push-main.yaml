@@ -1,0 +1,10 @@
+name: On Push To Main
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-all:
+    uses: ./.github/workflows/manual-ci-deploy.yaml
+    with:
+      deploy_all: true
