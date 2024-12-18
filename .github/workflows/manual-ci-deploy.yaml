@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          input_list=$(${{ toJSON(inputs) }} | jq 'keys')
+          input_list=$(${{ toJSON(inputs) }} | jq 'keys' -c)
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
 
   specific-integrations:
@@ -25,7 +25,7 @@ jobs:
     needs: [get-input-list]
     strategy:
       matrix:
-        path: ${{ needs.get-input-list.outputs.input-list }}
+        path: ${{ fromJSON(needs.get-input-list.outputs.input-list) }}
     steps:
       - name: checkout
         if: inputs.${{ matrix.path }}
