@@ -35,20 +35,12 @@ jobs:
       matrix:
         path: ${{ fromJSON(needs.get-input-list.outputs.input-list) }}
     steps:
-      - name: Check this path in inputs
-        id: check
-        run: |
-          should=$(echo '${{ toJSON(inputs) }}' | jq '.${{ matrix.path }}')
-          echo "should=$should" >> $GITHUB_OUTPUT
-
       - name: checkout
-        if: ${{ steps.check.outputs.should == 'true' }}
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: run integration
-        if: ${{ steps.check.outputs.should == 'true' }}
         uses: ./.github/actions/run_integration
         with:
           path: ${{ matrix.path }}
