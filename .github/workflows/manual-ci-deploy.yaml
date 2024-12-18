@@ -1,5 +1,20 @@
 name: Manual Continuous Integration
 on:
+  workflow_call:
+    inputs:
+      deploy_all:
+        type: boolean
+        default: false
+      integration_b:
+        type: boolean
+        default: false
+      integration_d:
+        type: boolean
+        default: false
+      integration_a:
+        type: boolean
+        default: false
+
   workflow_dispatch:
     inputs:
       deploy_all:
