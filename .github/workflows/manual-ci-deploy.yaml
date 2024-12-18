@@ -20,7 +20,11 @@ jobs:
     steps:
       - id: get
         run: |
-          input_list=$(echo '${{ toJSON(inputs) }}' | jq 'keys' -c)
+          if ${{ inputs.all }}; then
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq 'with_entries(select(.key != "all")) | keys')
+          else
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq 'with_entries(select(.value == "true" and .key != "all")) | keys')
+          fi
           echo $input_list
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
 
@@ -35,7 +39,6 @@ jobs:
         id: check
         run: |
           should=$(echo '${{ toJSON(inputs) }}' | jq '.${{ matrix.path }}')
-          echo $should
           echo "should=$should" >> $GITHUB_OUTPUT
 
       - name: checkout
