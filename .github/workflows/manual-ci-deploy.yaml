@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        input_list=$(${{ toJSON(inputs) }} | jq 'keys')
-        echo "input-list=$input_list" >> $GITHUB_OUTPUT
-  
+          input_list=$(${{ toJSON(inputs) }} | jq 'keys')
+          echo "input-list=$input_list" >> $GITHUB_OUTPUT
+
   specific-integrations:
     runs-on: ubuntu-latest
     needs: [get-input-list]
