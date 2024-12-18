@@ -13,37 +13,34 @@ on:
         default: false
 
 jobs:
-  say-hi:
+  get-input-list:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello world"
-
-  integrations:
+      - run: |
+        input_list=$(${{ toJSON(inputs) }} | jq 'keys')
+        echo "input-list=$input_list" >> $GITHUB_OUTPUT
+  
+  specific-integrations:
     runs-on: ubuntu-latest
-    needs: [say-hi]
+    needs: [get-input-list]
     strategy:
       matrix:
-        path: ["integration_a", "integration_b"]
+        path: ${{ needs.get-input-list.outputs.input-list }}
     steps:
       - name: checkout
+        if: ${{ inputs.${{ matrix.path }} }}
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: check for diff
-        id: check-diff
-        uses: ./.github/actions/check_path_diff
-        with:
-          path: ${{ matrix.path }}
-
       - name: run integration
-        if: ${{ steps.check-diff.outputs.has-diff == 'true' }}
+        if: ${{ inputs.${{ matrix.path }} }}
         uses: ./.github/actions/run_integration
         with:
           path: ${{ matrix.path }}
 
   after:
     runs-on: ubuntu-latest
-    needs: [integrations]
+    needs: [specific-integrations]
     steps:
       - run: echo "hello world"
