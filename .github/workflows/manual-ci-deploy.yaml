@@ -28,13 +28,13 @@ jobs:
         path: ${{ needs.get-input-list.outputs.input-list }}
     steps:
       - name: checkout
-        if: ${{ inputs.${{ matrix.path }} }}
+        if: inputs.${{ matrix.path }}
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: run integration
-        if: ${{ inputs.${{ matrix.path }} }}
+        if: inputs.${{ matrix.path }}
         uses: ./.github/actions/run_integration
         with:
           path: ${{ matrix.path }}
