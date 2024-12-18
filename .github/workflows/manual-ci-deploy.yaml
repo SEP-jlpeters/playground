@@ -33,7 +33,7 @@ jobs:
 
   specific-integrations:
     runs-on: ubuntu-latest
-    needs: [get-input-list]
+    needs: [get-integrations-to-deploy]
     strategy:
       matrix:
         path: ${{ fromJSON(needs.get-integrations-to-deploy.outputs.input-list) }}
