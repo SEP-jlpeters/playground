@@ -16,7 +16,7 @@ on:
         default: false
 
 jobs:
-  get-input-list:
+  get-integrations-to-deploy:
     runs-on: ubuntu-latest
     outputs:
       input-list: ${{ steps.get.outputs.input-list }}
@@ -36,7 +36,7 @@ jobs:
     needs: [get-input-list]
     strategy:
       matrix:
-        path: ${{ fromJSON(needs.get-input-list.outputs.input-list) }}
+        path: ${{ fromJSON(needs.get-integrations-to-deploy.outputs.input-list) }}
     steps:
       - name: checkout
         uses: actions/checkout@v2
