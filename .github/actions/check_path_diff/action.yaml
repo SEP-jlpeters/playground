@@ -14,9 +14,15 @@ runs:
     - id: get-diff
       shell: bash
       run: |
-        git diff ${{ github.event.before }} ${{ github.event.after }} --name-only
-        if git diff ${{ github.event.before }} ${{ github.event.after }} --name-only |
-        grep ${{ inputs.path }}; then
+        if ${{ github.event_name == 'pull_request' }}; then
+          BEFORE='HEAD^1'
+          AFTER='HEAD'
+        else
+          BEFORE=${{ github.event.before }}
+          AFTER=${{ github.event.after }}
+        fi
+        if git diff $BEFORE $AFTER --name-only |
+            grep ${{ inputs.path }}; then
           echo "has_diff=true" >> $GITHUB_OUTPUT
         else
           echo "has_diff=false" >> $GITHUB_OUTPUT
