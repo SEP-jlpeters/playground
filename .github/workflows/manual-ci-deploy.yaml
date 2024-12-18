@@ -5,6 +5,9 @@ on:
       integration_b:
         type: boolean
         default: false
+      integration_d:
+        type: boolean
+        default: false
       integration_a:
         type: boolean
         default: false
