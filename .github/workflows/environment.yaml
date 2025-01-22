@@ -11,6 +11,5 @@ jobs:
 
     steps:
       - name: print location
-       run: |
+        run: |
           echo "The current location is ${{ vars.MESSAGE }}"
-
