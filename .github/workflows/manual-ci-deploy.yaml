@@ -44,9 +44,9 @@ jobs:
       - id: get
         run: |
           if ${{ inputs.deploy_all }}; then
-            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.key != "deploy_all" or .key != "environment")) | keys')
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.key != "deploy_all" and .key != "environment")) | keys')
           else
-            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.value == true and .key != "deploy_all" or .key != "environment")) | keys')
+            input_list=$(echo '${{ toJSON(inputs) }}' | jq -c 'with_entries(select(.value == true and .key != "deploy_all" and .key != "environment")) | keys')
           fi
           echo $input_list
           echo "input-list=$input_list" >> $GITHUB_OUTPUT
