@@ -7,4 +7,5 @@ jobs:
   deploy-all:
     uses: ./.github/workflows/manual-ci-deploy.yaml
     with:
+      environment: dev
       deploy_all: true
